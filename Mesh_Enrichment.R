@@ -13,11 +13,12 @@ Sig_gene_all$Var1 = as.character(Sig_gene_all$Var1)
 #
 # convert ensemble to Entrez
 # keys return the keys for the database contained in the MeSHdb object
+
 key.symbol = keys(org.Bt.eg.db,  keytype = c("ENSEMBL"))
-entrezUniverse = select(org.Bt.eg.db, as.character(key.symbol), 
+entrezUniverse = AnnotationDbi::select(org.Bt.eg.db, as.character(key.symbol), 
                         columns = c("ENTREZID"),keytype = "ENSEMBL") %>% 
   dplyr::distinct(ENSEMBL,.keep_all= TRUE)
-names(entrezUniverse)
+dim(entrezUniverse)
 # 
 tmp1 = dplyr::left_join(Total_gene_all,entrezUniverse, by = c('x' = "ENSEMBL"))
 Sig_list_out_entrez = list(all3_sig = unique(na.omit(tmp1$ENTREZID)))
