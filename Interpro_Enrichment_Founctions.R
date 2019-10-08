@@ -1,3 +1,9 @@
+#
+library(org.Bt.eg.db)
+library(meshr)
+library(MeSH.db)
+library(MeSH.Bta.eg.db)
+library(tidyverse)
 #########################################################################################################################
 #########################################################################################################################
 InterPro_Enrich = function(total_genes_all,
@@ -195,13 +201,6 @@ MESH_Enrich = function(total_genes_all,
   message("Total Number of Mesh to check: ",length(MeshID)," with total number of names: ",length(MeshTerm))
   #pdf(paste(trimws(keyword),".pdf",sep = ""))
   for (i in c(1:(length(TestingSubsetNames)))){
-    #i = 1
-    #Sig_list_out_entrez_test2
-    #Total_list_out_entrez_test2
-    #Sig_list_out_entrez = list()
-    #Total_list_out_entrez = list()
-    sig.genes = unlist(Sig_list_out_entrez_test2);attributes(sig.genes) = NULL
-    total.genes = unlist(Total_list_out_entrez_test2);attributes(total.genes) = NULL
     message("working on dataset #",i," - ",TestingSubsetNames[i])
     sig.genes = unlist(sig_genes_all[i]);attributes(sig.genes) = NULL
     total.genes = unlist(total_genes_all[i]);attributes(total.genes) = NULL
