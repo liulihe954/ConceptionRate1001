@@ -88,10 +88,10 @@ write.csv(Interpro_Enrich_Results_thres005_3,"Interpro_Enrich_Results_thres005_3
 ##=============================#
 ## Data pre
 # Read in total genesstr(Total_gene)
-Total_gene_all = read.table("unique_all_slopes_Total_genes.txt",sep = "") 
+Total_gene_all = read.table("total.genes.slope.all.txt",sep = "") 
 Total_gene_all$x = as.character(Total_gene_all$x)
 # Sig genes
-Sig_gene_all = read.table("genes_repeat_2_3times.txt",sep = "") 
+Sig_gene_all = read.table("sig.genes.slope.all.txt.txt",sep = "") 
 Sig_gene_all$Var1 = as.character(Sig_gene_all$Var1)
 #
 Total_gene_list_all3 = list(Total_gene_all = Total_gene_all$x)
