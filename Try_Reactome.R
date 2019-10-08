@@ -1,3 +1,5 @@
+##Function calls
+source("Interpro_Enrichment_Founctions.R") 
 ## Data pre
 # Read in total genesstr(Total_gene)
 Total_gene_all = read.table("total.genes.slope.all.txt",sep = "") 
