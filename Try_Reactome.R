@@ -9,7 +9,7 @@ str(Sig_gene_all)
 
 # convert ensemble to Entrez
 # keys return the keys for the database contained in the MeSHdb object
-key.symbol = keys(org.Bt.eg.db,  keytype = c("ENSEMBL"))
+key.symbol = AnnotationDbi::keys(org.Bt.eg.db,  keytype = c("ENSEMBL"))
 entrezUniverse = AnnotationDbi::select(org.Bt.eg.db, as.character(key.symbol), 
                                        columns = c("ENTREZID"),keytype = "ENSEMBL") %>% 
   dplyr::distinct(ENSEMBL,.keep_all= TRUE)
