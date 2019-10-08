@@ -44,9 +44,31 @@ test = MESH_Enrich(Total_gene_list_all3,
                    #attributes = c("ensembl_gene_id","external_gene_name","entrezgene_id"),
                    keyword = "MESH_Enrichment_all3_1007")
 
-MESH_Enrichment_all3 = Parse_Results(Mesh_results_b_raw)
-#raw_pvalue_distribution
+load("MESH_Enrichment_all3_1007.RData")
+#MESH_Enrichment_all3 = Parse_Results(Mesh_results_b_raw)
+
 
 #MESH_Enrichment_all3 = dplyr::filter(MESH_Enrichment_all3,pvalue <)
+Total_gene_list_all3 = Sig_list_out_entrez
+Sig_gene_list_all3 = Total_list_out_entrez
+TestingSubsetNames = "All_three_slope_combined"
 
+# input pre
+Total_gene_list_all3 = unique(unlist(Total_gene_list_all3));attributes(Total_gene_list_all3) = NULL
+Sig_gene_list_all3 = unique(unlist(Sig_gene_list_all3));attributes(Sig_gene_list_all3) = NULL
+
+### use funtion
+meshParams <- new("MeSHHyperGParams", 
+                  geneIds = Sig_gene_list_all3, 
+                  universeGeneIds = Total_gene_list_all3, 
+                  annotation = "MeSH.Bta.eg.db",
+                  category = c("D"), database = "gene2pubmed", 
+                  pvalueCutoff = 0.05, pAdjust = "none")
+#str(meshParams)
+meshR <- meshHyperGTest(meshParams)
+out = data.frame(meshR@ORA$MESHID, meshR@ORA$MESHTERM, 
+                 meshR@ORA$Size, meshR@ORA$Count, signif(meshR@ORA$Pvalue,2))
+colnames(out) = c("MeSH_Term_ID", "MeSH_Term_Name", 
+                  "Total_Genes", "DE_Genes", "P-value")
+print(unique(out), row.names = F)
 
