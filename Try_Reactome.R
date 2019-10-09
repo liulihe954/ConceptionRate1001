@@ -7,11 +7,12 @@ source("Interpro_Enrichment_Founctions.R")
 #################################
 # Read in total genesstr(Total_gene)
 Total_gene_all = read.table("total.genes.slope.all.txt",sep = "") 
-Total_gene_all$x = as.character(Total_gene_all$x)
+Total_gene_all = as.character(Total_gene_all$x)
+
 # Sig genes
 Sig_gene_all = read.table("sig.genes.slope.all.txt",sep = "") 
 Sig_gene_all$Var1 = as.character(Sig_gene_all$Var1)
-Sig_gene_all = data.frame(Sig_gene_all$Var1)
+Sig_gene_all = as.character(Sig_gene_all$Var1)
 
 ##################################
 ##    the first three           ##
@@ -47,8 +48,8 @@ Sig_gene_list= list(Slope1_S = Sig_gene$x,
                     Slope_all_S = Sig_gene_all)
 
 
-
-
+#str(Total_gene_list)
+#str(Sig_gene_list)
 
   ##################################
   ##         Converting          ##
@@ -66,32 +67,35 @@ total_genes_all = Total_gene_list
 #library(limma)
 Sig_list_out = list()
 Total_list_out = list()
+
 for (i in c(1:4)){
   ## for sig
+  #i = 3
   tmp1 = data.frame(ENSEMBL = unlist(sig_genes_all[[i]]))
+  #head(tmp1)
   tmp1 = dplyr::left_join(tmp1 ,entrezUniverse, by = c("ENSEMBL" = "ENSEMBL"))
   Sig_list_out[[i]] = tmp1;names(Sig_list_out)[i] = names(sig_genes_all)[i]
   ## for total 
   tmp2 = data.frame(ENSEMBL = unlist(total_genes_all[[i]]))
   tmp2 = dplyr::left_join(tmp2,entrezUniverse,by = c("ENSEMBL" = "ENSEMBL"))
- Total_list_out[[i]] = tmp2;names(Total_list_out)[i] = names(total_genes_all)[i]
+  Total_list_out[[i]] = tmp2;names(Total_list_out)[i] = names(total_genes_all)[i]
 }
-
 ##
 # Keep only the entrez ID: then we have one vector for each element of the list (some format as always)
 Sig_list_out_entrez = list()
 Total_list_out_entrez = list()
-for (i in c(1:5)){
-  Sig_list_out_entrez[[i]] = unique(na.omit(data.frame(Sig_list_out[[i]])$ENTREZID_final))
+for (i in c(1:4)){
+  Sig_list_out_entrez[[i]] = unique(na.omit(data.frame(Sig_list_out[[i]])$ENTREZID))
   names(Sig_list_out_entrez)[i] = names(Sig_list_out)[i]
-  Total_list_out_entrez[[i]] = unique(na.omit(data.frame(Total_list_out[[i]])$ENTREZID_final))
+  Total_list_out_entrez[[i]] = unique(na.omit(data.frame(Total_list_out[[i]])$ENTREZID))
   names(Total_list_out_entrez)[i] = names(Total_list_out)[i]
 }
+
+#str(Sig_list_out_entrez)
+#str(Total_list_out_entrez)
 ## save the convert for next time, it will take some time if run again
 save(Total_list_out,Sig_list_out,Sig_list_out_entrez,Total_list_out_entrez,file = "ConvertName2Entrez.RData")
 load("ConvertName2Entrez.RData")
-str(Total_list_out)
-
 
 #########################################################################################################
 
@@ -124,7 +128,7 @@ NCBI2Reactome_all_react_bt =
                 Protein_Description = V3,
                 Source = V7, Species = V8)
 
-
+#str(Sig_list_out)
 #head(NCBI2Reactome_all_react_bt,50)
 # turn data input as charactor
 NCBI2Reactome_all_react_bt[] <-   lapply(NCBI2Reactome_all_react_bt, function(x) if(is.factor(x)) as.character(x) else x)
@@ -140,26 +144,29 @@ TestingSubsetNames = "all 3 slopes combined"
 Reactome_Enrichment_all3slope_1008 = 
   Reactome_Enrich(total_genes_all,
                   sig_genes_all,
+                  Sig_list_out = Sig_list_out,
                   TestingSubsetNames,
                   NCBI2Reactome_all_path_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_all3slope_1008_all_path")
+                  keyword = "Reactome_Enrichment_all3slope_1009_all_path")
 #
 Reactome_Enrichment_all3slope_1008 = 
   Reactome_Enrich(total_genes_all,
                   sig_genes_all,
+                  Sig_list_out = Sig_list_out,
                   TestingSubsetNames,
                   NCBI2Reactome_lowest_path_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_all3slope_1008_lowest_path")
+                  keyword = "Reactome_Enrichment_all3slope_1009_lowest_path")
 #
 Reactome_Enrichment_all3slope_1008 = 
   Reactome_Enrich(total_genes_all,
                   sig_genes_all,
+                  Sig_list_out = Sig_list_out,
                   TestingSubsetNames,
                   NCBI2Reactome_all_react_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_all3slope_1008_all_react")
+                  keyword = "Reactome_Enrichment_all3slope_1009_all_react")
 
 
 #load("Reactome_Enrichment_all3slope_1008.RData")
@@ -167,8 +174,8 @@ Reactome_Enrichment_all3slope_1008 =
 ## Data pre
 
 
-Total_gene_list_sep
-Sig_gene_list_sep
+#Total_gene_list_sep
+#Sig_gene_list_sep
 # Looping index (if multiple, then multi-loop)
-TestingSubsetNames = names(Sig_gene_list)
+#TestingSubsetNames = names(Sig_gene_list)
 
