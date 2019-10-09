@@ -10,11 +10,9 @@ Total_gene2$x = as.character(Total_gene2$x)
 #
 Total_gene3 = read.table("total.genes.slope3.txt",sep = "") 
 Total_gene3$x = as.character(Total_gene3$x)
-
 Total_gene_list = list(Slope1_T = Total_gene$x,
                        Slope2_T = Total_gene2$x,
                        Slope3_T = Total_gene3$x)
-
 # # Read in sig genes
 Sig_gene = read.csv("sig.genes.slope1.txt",sep = "") 
 Sig_gene$x = as.character(Sig_gene$x)
@@ -25,7 +23,6 @@ Sig_gene2$x = as.character(Sig_gene2$x)
 #
 Sig_gene3 = read.csv("sig.genes.slope3.txt",sep = "") 
 Sig_gene3$x = as.character(Sig_gene3$x)
-
 Sig_gene_list = list(Slope1_S = Sig_gene$x,
                      Slope2_S = Sig_gene2$x,
                      Slope3_S = Sig_gene3$x)
