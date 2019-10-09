@@ -345,7 +345,7 @@ Reactome_Enrich = function(total_genes_all,
                        Pvalue = Pval, 
                        ExternalLoss_total = ExternalLoss_total,
                        ExternalLoss_sig = ExternalLoss_sig,
-                       findG = PastefindG)
+                       findG = PastefindG )
       out = rbind(out,tmp)}
     # put all palues in a box
     raw_pvalue_all = append(raw_pvalue_all,out$Pvalue,length(raw_pvalue_all))

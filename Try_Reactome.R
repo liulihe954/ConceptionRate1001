@@ -139,7 +139,7 @@ NCBI2Reactome_all_path_bt[] <-   lapply(NCBI2Reactome_all_path_bt, function(x) i
 sig_genes_all = Sig_list_out_entrez
 total_genes_all = Total_list_out_entrez
 #InputSource = NCBI2Reactome_all_path_bt
-TestingSubsetNames = "all 3 slopes combined"
+TestingSubsetNames = c("slope1","slope2","slope3","slope_all")
 #
 Reactome_Enrichment_all3slope_1008 = 
   Reactome_Enrich(total_genes_all,
