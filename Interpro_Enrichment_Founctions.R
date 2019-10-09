@@ -334,7 +334,7 @@ Reactome_Enrich = function(total_genes_all,
       m = length(total.genes[total.genes %in% gENEs]) 
       findG = sig.genes[sig.genes %in% gENEs]
       s = length(findG)
-      orig_list = data.frame(Sig_list_out[[i]]) %>% dplyr::filter(ENTREZID_final == findG)
+      orig_list = data.frame(Sig_list_out[[i]]) %>% dplyr::filter(ENTREZID == findG)
       PastefindG = paste(orig_list$ENTREZID, collapse="/")
       M = matrix(c(s,S-s,m-s,N-m-S+s),byrow = 2, nrow = 2)
       Pval = round(fisher.test(M, alternative ="g")$p.value,100)
