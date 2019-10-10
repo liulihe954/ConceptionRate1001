@@ -300,7 +300,7 @@ Reactome_Enrich = function(total_genes_all,
   library(ggplot2);library(biomaRt);library(gage);library(magrittr);library(tidyverse)# load pkg
   Reactome_gene =   unique(InputSource[,1])
   ReactomeID =      unique(InputSource[,2])
-  ReactomeID = ReactomeID[1:20]
+  #ReactomeID = ReactomeID[1:20]
   ReactomeName =    unique(InputSource[,3])
   #ReactomeID = ReactomeID[1:300]
   message("Total Number of module/subsets to check: ",length(TestingSubsetNames))
