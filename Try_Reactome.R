@@ -180,7 +180,7 @@ All_Keywords_List = c("Reactome_Enrich_Slope_final_005_1010_lowest_path.xlsx",
                       "Reactome_Enrich_Slope_final_005_1010_all_path.xlsx",
                       "Reactome_Enrich_Slope_final__1010_all_react.xlsx")
 # loop for outputs
-for (i in seq_along(All_results_List)){
+for (i in seq_along(All_Results_List)){
   tmp_results_name = All_Results_List[i]
   tmp_key_name = All_Keywords_List[i]
   load(tmp_results_name)
