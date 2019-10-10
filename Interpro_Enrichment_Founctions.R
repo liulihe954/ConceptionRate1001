@@ -298,17 +298,15 @@ Reactome_Enrich = function(total_genes_all,
   Reactome_results_b = list()
   Reactome_results_b_raw = list()
   library(ggplot2);library(biomaRt);library(gage);library(magrittr);library(tidyverse)# load pkg
-  Reactome_gene =   unique(InputSource[,1])
-  ReactomeID =      unique(InputSource[,2])
+  Reactome_gene = unique(InputSource[,1])
+  ReactomeID =    unique(InputSource[,2])
   #ReactomeID = ReactomeID[1:20]
-  ReactomeName =    unique(InputSource[,3])
+  ReactomeName =  unique(InputSource[,3])
   #ReactomeID = ReactomeID[1:300]
   message("Total Number of module/subsets to check: ",length(TestingSubsetNames))
   message("Total Number of Reactome to check: ",length(ReactomeID)," with total number of names: ",length(ReactomeName))
   #pdf(paste(trimws(keyword),".pdf",sep = ""))
   for (i in c(1:(length(TestingSubsetNames)))){
-    #i = 1
-    InputSource = NCBI2Reactome_all_react_bt
     message("working on dataset #",i," - ",TestingSubsetNames[i])
     sig.genes = unlist(sig_genes_all[i]);attributes(sig.genes) = NULL
     total.genes = unlist(total_genes_all[i]);attributes(total.genes) = NULL
