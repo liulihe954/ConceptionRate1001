@@ -300,6 +300,7 @@ Reactome_Enrich = function(total_genes_all,
   library(ggplot2);library(biomaRt);library(gage);library(magrittr);library(tidyverse)# load pkg
   Reactome_gene =   unique(InputSource[,1])
   ReactomeID =      unique(InputSource[,2])
+  ReactomeID = ReactomeID[1:20]
   ReactomeName =    unique(InputSource[,3])
   #ReactomeID = ReactomeID[1:300]
   message("Total Number of module/subsets to check: ",length(TestingSubsetNames))
@@ -307,6 +308,7 @@ Reactome_Enrich = function(total_genes_all,
   #pdf(paste(trimws(keyword),".pdf",sep = ""))
   for (i in c(1:(length(TestingSubsetNames)))){
     #i = 1
+    InputSource = NCBI2Reactome_all_react_bt
     message("working on dataset #",i," - ",TestingSubsetNames[i])
     sig.genes = unlist(sig_genes_all[i]);attributes(sig.genes) = NULL
     total.genes = unlist(total_genes_all[i]);attributes(total.genes) = NULL
@@ -327,15 +329,15 @@ Reactome_Enrich = function(total_genes_all,
                      findG =  character())
     message("Module size of ",TestingSubsetNames[i],": ", length(sig.genes))
     for(j in 1:length(ReactomeID)){
-      # j = 101
+      #j = 101
       if (j%%100 == 0) {message("tryingd on Reactome ",j," - ",ReactomeID[j]," - ",ReactomeName[j])}
       target = ReactomeID[j]
       gENEs = unique(subset(InputSource, ReactomeID == target)$EntrezID)
       m = length(total.genes[total.genes %in% gENEs]) 
       findG = sig.genes[sig.genes %in% gENEs]
       s = length(findG)
-      orig_list = data.frame(Sig_list_out[[i]]) %>% dplyr::filter(ENTREZID == findG)
-      PastefindG = paste(orig_list$ENTREZID, collapse="/")
+      orig_list = data.frame(Sig_list_out[[i]]) %>% dplyr::filter(ENTREZID %in% findG)
+      PastefindG = paste(orig_list[,1], collapse="/")
       M = matrix(c(s,S-s,m-s,N-m-S+s),byrow = 2, nrow = 2)
       Pval = round(fisher.test(M, alternative ="g")$p.value,100)
       tmp = data.frame(ReactomeID = ReactomeID[j], 
