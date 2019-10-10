@@ -119,7 +119,7 @@ Total_gene_list_all3 = Total_list_out_entrez
 Sig_gene_list_all3 = Sig_list_out_entrez
 #str(Total_gene_list_all3)
 #str(Sig_gene_list_all3)
-#TestingSubsetNames = "test"
+TestingSubsetNames = names(total_genes_all)
 
 Mesh_Enrichment_all3slope_1010 = 
   MESH_Enrich(Total_gene_list_all3,
