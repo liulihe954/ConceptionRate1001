@@ -181,3 +181,49 @@ Reactome_Enrichment_all3slope_1008 =
 # Looping index (if multiple, then multi-loop)
 #TestingSubsetNames = names(Sig_gene_list)
 
+
+##############################
+### formating the results  ##
+##############################
+load("Reactome_Enrichment_allslope_1010_lowest_path.RData")
+keyword1 = "Reactome_Enrich_Slope_final_005_1010_lowest_path.xlsx"
+
+load("Reactome_Enrichment_allslope_1010_all_path.RData")
+keyword1 = "Reactome_Enrich_Slope_final_005_1010_all_path.xlsx"
+
+load("Reactome_Enrichment_allslope_1010_all_react.RData")
+keyword1 = "Reactome_Enrich_Slope_final__1010_all_react.xlsx"
+
+
+# parse 1 by 1, and attach the space name in the end
+compile_select_index = c("ReactomeID","ReactomeTerm","Total_Genes","Significant_Genes","pvalue","findG","hitsPerc")
+### group 1
+#str(Reactome_results_b)
+#str(Reactome_results_b)
+slope1 = Parse_Results(Reactome_results_b[1]) 
+names(slope1) = c("ReactomeID","ReactomeTerm","Total_Genes","Significant_Genes","pvalue","ExternalLoss_total","InternalLoss_sig","findG","hitsPerc")
+slope1 = dplyr::select(slope1,compile_select_index)  #%>% dplyr::left_join(match_family,by=c("InterproID" = "InterproID"))
+#
+slope2 = Parse_Results(Reactome_results_b[2]) 
+names(slope2) = c("ReactomeID","ReactomeTerm","Total_Genes","Significant_Genes","pvalue","ExternalLoss_total","InternalLoss_sig","findG","hitsPerc")
+slope2 = dplyr::select(slope2,compile_select_index)  #%>% dplyr::left_join(match_family,by=c("InterproID" = "InterproID"))
+### group 2
+slope3 = Parse_Results(Reactome_results_b[3]) 
+names(slope3) = c("ReactomeID","ReactomeTerm","Total_Genes","Significant_Genes","pvalue","ExternalLoss_total","InternalLoss_sig","findG","hitsPerc")
+slope3 = dplyr::select(slope3,compile_select_index)  #%>% dplyr::left_join(match_family,by=c("InterproID" = "InterproID"))
+#
+slopeall = Parse_Results(Reactome_results_b[4]) 
+names(slopeall) = c("ReactomeID","ReactomeTerm","Total_Genes","Significant_Genes","pvalue","ExternalLoss_total","InternalLoss_sig","findG","hitsPerc")
+slopeall = dplyr::select(slopeall,compile_select_index)  #%>% dplyr::left_join(match_family,by=c("InterproID" = "InterproID"))
+#
+Slope_final <- list("slope1" = slope1, 
+                                   "slope2" = slope2,
+                                   "slope3" = slope3,
+                                   "slope4" = slopeall)
+write.xlsx(Slope_final,file = keyword1)
+
+
+
+
+
+
