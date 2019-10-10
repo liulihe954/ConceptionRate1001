@@ -148,7 +148,9 @@ Reactome_Enrichment_all3slope_1008 =
                   TestingSubsetNames,
                   NCBI2Reactome_all_path_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_all3slope_1009_all_path")
+                  keyword = "Reactome_Enrichment_allslope_1010_all_path")
+#load("Reactome_Enrichment_all3slope_1009_all_path_test.RData")
+#Reactome_results_b_raw
 #
 Reactome_Enrichment_all3slope_1008 = 
   Reactome_Enrich(total_genes_all,
@@ -157,7 +159,7 @@ Reactome_Enrichment_all3slope_1008 =
                   TestingSubsetNames,
                   NCBI2Reactome_lowest_path_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_all3slope_1009_lowest_path")
+                  keyword = "Reactome_Enrichment_allslope_1010_lowest_path")
 #
 Reactome_Enrichment_all3slope_1008 = 
   Reactome_Enrich(total_genes_all,
@@ -166,7 +168,7 @@ Reactome_Enrichment_all3slope_1008 =
                   TestingSubsetNames,
                   NCBI2Reactome_all_react_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_all3slope_1009_all_react")
+                  keyword = "Reactome_Enrichment_allslope_1010_all_react")
 
 
 #load("Reactome_Enrichment_all3slope_1008.RData")
