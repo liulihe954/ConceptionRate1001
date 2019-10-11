@@ -129,8 +129,47 @@ Mesh_Enrichment_all3slope_1010 =
               Meshthres = 0.05,
               MeshCate = c("D","G"),
               dataset="MeSH.Bta.eg.db",
-              keyword = "Mesh_Enrichment_allslope_1010 ")
+              keyword = "Mesh_Enrichment_allslope_1011_G")
                    
+
+#####=============================================================#######
+#####=============================================================#######
+##############################
+### formating the results  ##
+##############################
+All_Results_List = c("Mesh_Enrichment_allslope_1011_G.RData")
+All_Keywords_List = c("Mesh_Enrich_Slope_final_005_1011_G.xlsx")
+# loop for outputs
+for (i in seq_along(All_Results_List)){
+  tmp_results_name = All_Results_List[i]
+  tmp_key_name = All_Keywords_List[i]
+  load(tmp_results_name)
+  # set up selecting index
+  compile_select_index = c("MeshID","MeshTerm","Total_Genes","Significant_Genes","pvalue","findG","hitsPerc")
+ # slope1
+  slope1 = Parse_Results(Mesh_results_b[1]) 
+  names(slope1) = c("MeshID","MeshTerm","Total_Genes","Significant_Genes","pvalue","ExternalLoss_total","InternalLoss_sig","findG","hitsPerc")
+  slope1 = dplyr::select(slope1,compile_select_index)  #%>% dplyr::left_join(match_family,by=c("InterproID" = "InterproID"))
+  # slope2
+  slope2 = Parse_Results(Mesh_results_b[2]) 
+  names(slope2) = c("MeshID","MeshTerm","Total_Genes","Significant_Genes","pvalue","ExternalLoss_total","InternalLoss_sig","findG","hitsPerc")
+  slope2 = dplyr::select(slope2,compile_select_index)  #%>% dplyr::left_join(match_family,by=c("InterproID" = "InterproID"))
+  # slope3
+  slope3 = Parse_Results(Mesh_results_b[3]) 
+  names(slope3) = c("MeshID","MeshTerm","Total_Genes","Significant_Genes","pvalue","ExternalLoss_total","InternalLoss_sig","findG","hitsPerc")
+  slope3 = dplyr::select(slope3,compile_select_index)  #%>% dplyr::left_join(match_family,by=c("InterproID" = "InterproID"))
+  # slope_all
+  slopeall = Parse_Results(Mesh_results_b[4]) 
+  names(slopeall) = c("MeshID","MeshTerm","Total_Genes","Significant_Genes","pvalue","ExternalLoss_total","InternalLoss_sig","findG","hitsPerc")
+  slopeall = dplyr::select(slopeall,compile_select_index)  #%>% dplyr::left_join(match_family,by=c("InterproID" = "InterproID"))
+  #
+  Slope_final <- list("slope1" = slope1,
+                      "slope2" = slope2,
+                       "slope3" = slope3,
+                       "slope4" = slopeall)
+  require(openxlsx)
+  write.xlsx(Slope_final,file = tmp_key_name)
+}
 
 
 

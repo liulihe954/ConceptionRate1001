@@ -189,6 +189,7 @@ MESH_Enrich = function(total_genes_all,
   keyword_outer = "MeshDB"
   DB = paste(keyword_outer,".RData",sep = "")
   load(DB)
+  list_Bta = dplyr::filter(list_Bta, MESHCATEGORY == "G")
   #Sig_list_out_entrez_test2
   #Total_list_out_entrez_test2
   # Get index
