@@ -4,8 +4,8 @@ suppressMessages(library(org.Bt.eg.db))
 options(warn=-1); suppressMessages(library(meshr)); options(warn=0)
 suppressMessages(library(MeSH.db))
 suppressMessages(library(MeSH.Bta.eg.db))
-## Data pre
 
+## Data pre
 # raw data for retrive MESHid and all details linked
 #KEY = keys(MeSH.db, keytype = "MESHID")
 #List = select(MeSH.db, keys = KEY, columns = columns(MeSH.db), keytype = "MESHID")
@@ -18,6 +18,7 @@ suppressMessages(library(MeSH.Bta.eg.db))
 #  dplyr::select(GENEID,MESHCATEGORY,MESHID,SOURCEID) %>% dplyr::filter(MESHCATEGORY == c("D","G")) %>% 
 #  dplyr::left_join(Match_List,by= c("MESHID" = "MESHID"))
 # head(list_Bta,30)
+
 keyword_outer = "MeshDB"
 DB = paste(keyword_outer,".RData",sep = "")
 load(DB)
