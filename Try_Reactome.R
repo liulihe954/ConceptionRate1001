@@ -48,15 +48,14 @@ Sig_gene_list= list(Slope1_S = Sig_gene$x,
                     Slope_all_S = Sig_gene_all)
 
 
-#str(Total_gene_list)
-#str(Sig_gene_list)
-
   ##################################
   ##         Converting          ##
   #################################
 # convert ensemble to Entrez
 # keys return the keys for the database contained in the MeSHdb object
-key.symbol = AnnotationDbi::keys(org.Bt.eg.db,  keytype = c("ENSEMBL"))
+key.symbol = AnnotationDbi::keys(org.Bt.eg.db,keytype = c("ENSEMBL"))
+test = AnnotationDbi::keys(org.Bt.eg.db,keytype = c("GO"))
+length(test)
 entrezUniverse = AnnotationDbi::select(org.Bt.eg.db, as.character(key.symbol), 
                                        columns = c("ENTREZID"),keytype = "ENSEMBL") %>% 
   dplyr::distinct(ENSEMBL,.keep_all= TRUE)
@@ -74,10 +73,12 @@ for (i in c(1:4)){
   tmp1 = data.frame(ENSEMBL = unlist(sig_genes_all[[i]]))
   #head(tmp1)
   tmp1 = dplyr::left_join(tmp1 ,entrezUniverse, by = c("ENSEMBL" = "ENSEMBL"))
+  names(tmp1)[2]  = "ENTREZID_final"
   Sig_list_out[[i]] = tmp1;names(Sig_list_out)[i] = names(sig_genes_all)[i]
   ## for total 
   tmp2 = data.frame(ENSEMBL = unlist(total_genes_all[[i]]))
   tmp2 = dplyr::left_join(tmp2,entrezUniverse,by = c("ENSEMBL" = "ENSEMBL"))
+  names(tmp2)[2]  = "ENTREZID_final"
   Total_list_out[[i]] = tmp2;names(Total_list_out)[i] = names(total_genes_all)[i]
 }
 ##
@@ -96,7 +97,6 @@ for (i in c(1:4)){
 ## save the convert for next time, it will take some time if run again
 save(Total_list_out,Sig_list_out,Sig_list_out_entrez,Total_list_out_entrez,file = "ConvertName2Entrez.RData")
 load("ConvertName2Entrez.RData")
-
 #########################################################################################################
 
 
@@ -123,7 +123,7 @@ NCBI2Reactome_all_react_bt =
   dplyr::filter(NCBI2Reactome_all_react,V8 == "Bos taurus") %>% 
   dplyr::select(V1,V4,V6,V2,V3,V7,V8) %>% 
   dplyr::rename(EntrezID = V1,ReactomeID = V4, 
-                Reaction_Description = V6,
+                Reactome_Description = V6,
                 ProteinID = V2,
                 Protein_Description = V3,
                 Source = V7, Species = V8)
@@ -139,7 +139,7 @@ NCBI2Reactome_all_path_bt[] <-   lapply(NCBI2Reactome_all_path_bt, function(x) i
 sig_genes_all = Sig_list_out_entrez
 total_genes_all = Total_list_out_entrez
 #InputSource = NCBI2Reactome_all_path_bt
-TestingSubsetNames = c("slope1","slope2","slope3","slope_all")
+#TestingSubsetNames = c("slope1","slope2","slope3","slope_all")
 #
 Reactome_Enrichment_all3slope_1008 = 
   Reactome_Enrich(total_genes_all,
@@ -148,7 +148,7 @@ Reactome_Enrichment_all3slope_1008 =
                   TestingSubsetNames,
                   NCBI2Reactome_all_path_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_allslope_1010_all_path")
+                  keyword = "Reactome_Enrichment_allslope_1015_all_path")
 #load("Reactome_Enrichment_all3slope_1009_all_path_test.RData")
 #Reactome_results_b_raw
 #
@@ -159,7 +159,7 @@ Reactome_Enrichment_all3slope_1008 =
                   TestingSubsetNames,
                   NCBI2Reactome_lowest_path_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_allslope_1010_lowest_path")
+                  keyword = "Reactome_Enrichment_allslope_1015_lowest_path")
 #
 Reactome_Enrichment_all3slope_1008 = 
   Reactome_Enrich(total_genes_all,
@@ -168,17 +168,19 @@ Reactome_Enrichment_all3slope_1008 =
                   TestingSubsetNames,
                   NCBI2Reactome_all_react_bt,
                   Reacthres = 0.05,
-                  keyword = "Reactome_Enrichment_allslope_1010_all_react")
+                  keyword = "Reactome_Enrichment_allslope_1015_all_react")
+
 
 ##############################
 ### formating the results  ##
 ##############################
-All_Results_List = c("Reactome_Enrichment_allslope_1010_lowest_path.RData",
-                     "Reactome_Enrichment_allslope_1010_all_path.RData",
-                     "Reactome_Enrichment_allslope_1010_all_react.RData")
-All_Keywords_List = c("Reactome_Enrich_Slope_final_005_1010_lowest_path.xlsx",
-                      "Reactome_Enrich_Slope_final_005_1010_all_path.xlsx",
-                      "Reactome_Enrich_Slope_final__1010_all_react.xlsx")
+All_Results_List = c("Reactome_Enrichment_allslope_1015_lowest_path.RData",
+                     "Reactome_Enrichment_allslope_1015_all_path.RData",
+                     "Reactome_Enrichment_allslope_1015_all_react.RData")
+All_Keywords_List = c("Reactome_Enrich_Slope_final_005_1015_lowest_path.xlsx",
+                      "Reactome_Enrich_Slope_final_005_1015_all_path.xlsx",
+                      "Reactome_Enrich_Slope_final__1015_all_react.xlsx")
+
 # loop for outputs
 for (i in seq_along(All_Results_List)){
   tmp_results_name = All_Results_List[i]

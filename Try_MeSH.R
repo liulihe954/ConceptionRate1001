@@ -83,19 +83,18 @@ entrezUniverse = AnnotationDbi::select(org.Bt.eg.db, as.character(key.symbol),
 sig_genes_all = Sig_gene_list
 total_genes_all = Total_gene_list
 
-#library(limma)
-Sig_list_out = list()
-Total_list_out = list()
 for (i in c(1:4)){
   ## for sig
   #i = 3
   tmp1 = data.frame(ENSEMBL = unlist(sig_genes_all[[i]]))
   #head(tmp1)
   tmp1 = dplyr::left_join(tmp1 ,entrezUniverse, by = c("ENSEMBL" = "ENSEMBL"))
+  names(tmp1)[2]  = "ENTREZID_final"
   Sig_list_out[[i]] = tmp1;names(Sig_list_out)[i] = names(sig_genes_all)[i]
   ## for total 
   tmp2 = data.frame(ENSEMBL = unlist(total_genes_all[[i]]))
   tmp2 = dplyr::left_join(tmp2,entrezUniverse,by = c("ENSEMBL" = "ENSEMBL"))
+  names(tmp2)[2]  = "ENTREZID_final"
   Total_list_out[[i]] = tmp2;names(Total_list_out)[i] = names(total_genes_all)[i]
 }
 ##
@@ -130,7 +129,7 @@ Mesh_Enrichment_all3slope_1010 =
               Meshthres = 0.05,
               MeshCate = c("D","G"),
               dataset="MeSH.Bta.eg.db",
-              keyword = "Mesh_Enrichment_allslope_1011_G")
+              keyword = "Mesh_Enrichment_allslope_1015")
                    
 
 #####=============================================================#######
@@ -138,8 +137,8 @@ Mesh_Enrichment_all3slope_1010 =
 ##############################
 ### formating the results  ##
 ##############################
-All_Results_List = c("Mesh_Enrichment_allslope_1011_G.RData")
-All_Keywords_List = c("Mesh_Enrich_Slope_final_005_1011_G.xlsx")
+All_Results_List = c("Mesh_Enrichment_allslope_1015.RData")
+All_Keywords_List = c("Mesh_Enrich_Slope_final_005_1015.xlsx")
 # loop for outputs
 for (i in seq_along(All_Results_List)){
   tmp_results_name = All_Results_List[i]
