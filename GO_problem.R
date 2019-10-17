@@ -6,6 +6,7 @@ go_test = c("GO:0008066")
 
 
 
+
 library(biomaRt)
 library(org.Bt.eg.db)
 # get info from biomart
@@ -22,10 +23,10 @@ length(all_go2) # total 9032
 table(all_go2 %in% all_go1)
 table(all_go1 %in% all_go2)
 
-
-
-head(all_go2 %in% all_go1)
+# test one of them
 head(all_go1[!(all_go1 %in% all_go2)])
+
+
 
 
 # check the target in biomart
