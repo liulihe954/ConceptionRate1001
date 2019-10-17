@@ -114,7 +114,7 @@ ReduceDim_GO_Plot(Interpro_Enrich_Results_thres005_3,GOthres = 0.05,
 
 ReduceDim_GO_Plot(Interpro_Enrich_Results_thres005_4,GOthres = 0.05,
                   label_sizeCC = 0.4,
-                  label_sizeBP = 0.4,
-                  label_sizeMF = 0.4,Dataset_Name = "Slop4_sematic_sim_GOh")
+                  label_sizeBP = 0.3,
+                  label_sizeMF = 0.2,Dataset_Name = "Slop4_sematic_sim_GOh")
 
 #"GO:0038023""GO:0004970","GO:0005509","GO:0038023"

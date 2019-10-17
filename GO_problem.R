@@ -7,6 +7,9 @@ go_test = c("GO:0008066")
 
 
 
+
+
+
 library(biomaRt)
 library(org.Bt.eg.db)
 # get info from biomart
@@ -25,6 +28,14 @@ table(all_go1 %in% all_go2)
 
 # test one of them
 head(all_go1[!(all_go1 %in% all_go2)])
+
+sessionInfo()
+
+
+
+
+
+
 
 
 
